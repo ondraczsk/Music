@@ -28,51 +28,51 @@ class ZMusicBox extends PluginBase implements Listener{
 	public $name;
 	
 	public function onEnable(){
-		$this->getLogger()->info("ZMusicBox is loading!");
+		$this->getLogger()->info("Hudba se nacita!");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		if(!is_dir($this->getPluginDir())){
 			@mkdir($this->getServer()->getDataPath()."plugins/songs");
 		}
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		if(!$this->CheckMusic()){
-			$this->getLogger()->info("§bPlease put in nbs files!!!");
+			$this->getLogger()->info("Vloz do slozky .nbs soubory!!");
 		}else{
 			$this->StartNewTask();
 		}
-		$this->getLogger()->info("ZMusicBox loaded!!!!!");
+		$this->getLogger()->info("Hudba nactena!");
 	} 
 
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
 		switch($cmd->getName()) {
-			case "music":
+			case "hudba":
 				if(isset($args[0])){
 					switch($args[0]){
-						case "next":
+						case "dalsi":
 							$this->StartNewTask();
-							$sender->sendMessage(TextFormat::GREEN."Switched to next song");
+							$sender->sendTip(TextFormat::DARK_GREEN."Prepnuto na dalsi song!");
 							return true;
 							break;
 						case "stop":
-							if($sender->isOp()){
+							if($sender->isDefault()){
 								$this->getServer()->getScheduler()->cancelTasks($this);
-								$sender->sendMessage(TextFormat::GREEN."Song Stopped");
+								$sender->sendTip(TextFormat::GREEN."Song Zastaven!");
 							}else{
-								$sender->sendMessage(TextFormat::RED."No Permission");
+								$sender->sendMessage(TextFormat::RED."Nemas permise");
 							}
 							return true;
 							break;	
 						case "start":
-							if($sender->isOp()){
+							if($sender->isDefault()){
 								$this->StartNewTask();
-								$sender->sendMessage(TextFormat::GREEN."Song Started");
+								$sender->sendTip(TextFormat::GREEN."Song je spusten!");
 							}else{
-								$sender->sendMessage(TextFormat::RED."No Permission");
+								$sender->sendMessage(TextFormat::RED."Nemas permise");
 							}
 							return true;
 							break;	
 					}
 				}else{
-					$sender->sendMessage(TextFormat::RED."Usage:/music <start|stop|next>");
+					$sender->sendMessage(TextFormat::RED."Usage:/hudba <start|stop|dalsi>");
 				}
 			break;		
 		}
@@ -173,9 +173,9 @@ class ZMusicBox extends PluginBase implements Listener{
 				$noteblock1 = $noteblock;
 				if(!empty($noteblock)){
 					if($this->song->name != ""){
-						$p->sendPopup("§b|->§6Now Playing: §a".$this->song->name."§b<-|");
+						$p->sendPopup("§7Hrajeme:§e ".$this->song->name."");
 					}else{	
-						$p->sendPopup("§b|->§6Now Playing: §a".$this->name."§b<-|");
+						$p->sendPopup("§7Hrajeme:§e ".$this->name."");
 					}
 					$i = 0;
 					while ($i < $blo){
@@ -203,7 +203,7 @@ class ZMusicBox extends PluginBase implements Listener{
 	}
 		
 	public function onDisable(){
-		$this->getLogger()->info("ZMusicBox Unload Success!");
+		$this->getLogger()->info("Hudba odnactena!");
 	}
 	
 	public function StartNewTask(){
