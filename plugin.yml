@@ -6,7 +6,7 @@ description: Music~~
 main: ZMusicBox\ZMusicBox
 
 commands:
- music:
+ hudba:
   permission: ZMusicBox.music
   description: ZMusicBox's main command
   usage: /hudba <Dalsi|Start|Stop>
