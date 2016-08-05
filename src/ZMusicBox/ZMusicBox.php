@@ -53,7 +53,7 @@ class ZMusicBox extends PluginBase implements Listener{
 							return true;
 							break;
 						case "stop":
-							if($sender->isDefault()){
+							if($sender->isOp()){
 								$this->getServer()->getScheduler()->cancelTasks($this);
 								$sender->sendTip(TextFormat::GREEN."Song Zastaven!");
 							}else{
@@ -62,7 +62,7 @@ class ZMusicBox extends PluginBase implements Listener{
 							return true;
 							break;	
 						case "start":
-							if($sender->isDefault()){
+							if($sender->isOp()){
 								$this->StartNewTask();
 								$sender->sendTip(TextFormat::GREEN."Song je spusten!");
 							}else{
