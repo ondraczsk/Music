@@ -13,10 +13,10 @@ commands:
 
 permissions:
  ZMusicBox:
-  default: op
+  default: true
   description: ZMusicBox Commands
   children:
      ZMusicBox.music:
-      default: op
+      default: true
       description: ZMusicBox Commands
     
